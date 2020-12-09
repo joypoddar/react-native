@@ -25,3 +25,7 @@ yarn add react-native-elements@beta
 // yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
 // yarn add @react-navigation/stack
 // yarn add react-native-vector-icons
+
+## Navigation Part 2
+
+yarn add @react-navigation/drawer

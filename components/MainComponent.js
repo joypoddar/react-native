@@ -10,6 +10,8 @@ import Menu from "./MenuComponent";
 import Dishdetail from "./DishdetailComponent";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import Home from "./HomeComponent";
 
 const MenuNavigator = createStackNavigator();
 
@@ -38,11 +40,46 @@ function MenuNavigatorScreen() {
   );
 }
 
+const HomeNavigator = createStackNavigator();
+
+function HomeNavigatorScreen({ navigation }) {
+  return (
+    <HomeNavigator.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#512DA8",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          color: "#fff",
+        },
+      }}
+    >
+      <HomeNavigator.Screen name="Home" component={Home} />
+    </HomeNavigator.Navigator>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MainNavigator({ navigation }) {
+  return (
+    <Drawer.Navigator
+      initialRouteName="Home"
+      drawerStyle={{ backgroundColor: "#D1C4E9" }}
+    >
+      <Drawer.Screen name="Home" component={HomeNavigatorScreen} />
+      <Drawer.Screen name="Menu" component={MenuNavigatorScreen} />
+    </Drawer.Navigator>
+  );
+}
+
 class Main extends Component {
   render() {
     return (
       <NavigationContainer>
-        <MenuNavigatorScreen />
+        <MainNavigator />
       </NavigationContainer>
     );
   }
