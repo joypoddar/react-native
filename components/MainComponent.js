@@ -61,6 +61,7 @@ const CustomDrawerContentComponent = (props) => (
 );
 
 const MenuNavigator = createStackNavigator();
+
 function MenuNavigatorScreen({ navigation }) {
   return (
     <MenuNavigator.Navigator
@@ -83,7 +84,7 @@ function MenuNavigatorScreen({ navigation }) {
         }}
       />
       <MenuNavigator.Screen
-        name="Dish Detail"
+        name="Dishdetail"
         component={Dishdetail}
         options={{ headerTitle: "Dish Detail" }}
       />
@@ -123,7 +124,7 @@ const ContactNavigator = createStackNavigator();
 function ContactNavigatorScreen({ navigation }) {
   return (
     <ContactNavigator.Navigator
-      initialRouteName="Contact Us"
+      initialRouteName="Contact"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#512DA8",
@@ -135,7 +136,7 @@ function ContactNavigatorScreen({ navigation }) {
       }}
     >
       <ContactNavigator.Screen
-        name="Contact Us"
+        name="Contact"
         component={Contact}
         options={{
           headerLeft: () => <StackNavigatorIcon navigation={navigation} />,

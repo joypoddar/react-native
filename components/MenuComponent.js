@@ -1,6 +1,5 @@
 // Menu Component
 import React, { Component } from "react";
-import { FlatList } from "react-native";
 import { Avatar, ListItem } from "react-native-elements";
 import { DISHES } from "../shared/dishes";
 
@@ -18,7 +17,9 @@ class Menu extends Component {
   };
 
   render() {
-    const renderMenuItem = ({ item, index }) => {
+    const { navigate } = this.props.navigation;
+    const dishes = this.state.dishes;
+    return dishes.map((item, index) => {
       return (
         <ListItem
           key={index}
@@ -31,17 +32,7 @@ class Menu extends Component {
           </ListItem.Content>
         </ListItem>
       );
-    };
-
-    const { navigate } = this.props.navigation;
-
-    return (
-      <FlatList
-        data={this.state.dishes}
-        renderItem={renderMenuItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    );
+    });
   }
 }
 
