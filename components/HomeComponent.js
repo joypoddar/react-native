@@ -6,16 +6,34 @@ import { DISHES } from "../shared/dishes";
 import { LEADERS } from "../shared/leaders";
 import { PROMOTIONS } from "../shared/promotions";
 
+// function RenderItems(props) {
+//   const item = props.item;
+
+//   if (item != null) {
+//     return (
+//       <Card
+//         featuredTitle={item.name}
+//         featuredSubtitle={item.designation}
+//         image={require("./images/uthappizza.png")}
+//       >
+//         <Text style={{ margin: 10 }}>{item.description}</Text>
+//       </Card>
+//     );
+//   } else {
+//     return <View></View>;
+//   }
+// }
+
 function RenderItems(props) {
   const item = props.item;
 
   if (item != null) {
     return (
-      <Card
-        featuredTitle={item.name}
-        featuredSubtitle={item.designation}
-        image={require("./images/uthappizza.png")}
-      >
+      <Card>
+        <Card.Title>{item.name}</Card.Title>
+        {/* <Card.FeaturedTitle>{item.name}</Card.FeaturedTitle> */}
+        <Card.FeaturedSubtitle>{item.designation}</Card.FeaturedSubtitle>
+        <Card.Image source={require("./images/uthappizza.png")} />
         <Text style={{ margin: 10 }}>{item.description}</Text>
       </Card>
     );
