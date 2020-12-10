@@ -1,7 +1,7 @@
 // Dishdetail
 import React, { Component } from "react";
 import { View, Text, ScrollView } from "react-native";
-import { Card } from "react-native-elements";
+import { Card, Icon } from "react-native-elements";
 import { COMMENTS } from "../shared/comments";
 import { DISHES } from "../shared/dishes";
 
@@ -14,6 +14,16 @@ function RenderDish(props) {
         <Card.Title>{dish.name}</Card.Title>
         <Card.Image source={require("./images/alberto.png")} />
         <Text style={{ margin: 10 }}>{dish.description}</Text>
+        <Icon
+          raised
+          reverse
+          name={props.favorite ? "heart" : "heart-o"}
+          type="font-awesome"
+          color="#f50"
+          onPress={() =>
+            props.favorite ? console.log("Already favorite") : props.onPress()
+          }
+        />
       </Card>
     );
   } else {
@@ -48,7 +58,14 @@ class Dishdetail extends Component {
     this.state = {
       dishes: DISHES,
       comments: COMMENTS,
+      favorites: [],
     };
+  }
+
+  markFavorite(dishId) {
+    this.setState({
+      favorites: this.state.favorites.concat(dishId),
+    });
   }
 
   static navigationOptions = {
@@ -60,7 +77,11 @@ class Dishdetail extends Component {
 
     return (
       <ScrollView>
-        <RenderDish dish={this.state.dishes[+dishId]} />
+        <RenderDish
+          dish={this.state.dishes[+dishId]}
+          favorite={this.state.favorites.some((el) => el === dishId)}
+          onPress={() => this.markFavorite(dishId)}
+        />
         <RenderComments
           comments={this.state.comments.filter(
             (comment) => comment.dishId === dishId
