@@ -29,3 +29,7 @@ yarn add react-native-elements@beta
 ## Navigation Part 2
 
 yarn add @react-navigation/drawer
+
+## W2: Exercise (Video): Using Redux in your React Native App
+
+Follow instruction in baseUrl.js file to load the json-server

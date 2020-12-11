@@ -19,7 +19,7 @@ function RenderDish(props) {
     return (
       <Card>
         <Card.Title>{dish.name}</Card.Title>
-        <Card.Image source={{ uri: baseURL + item.image }} />
+        <Card.Image source={{ uri: baseURL + dish.image }} />
         <Text style={{ margin: 10 }}>{dish.description}</Text>
         <Icon
           raised

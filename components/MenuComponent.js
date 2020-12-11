@@ -1,8 +1,9 @@
 // Menu Component
 import React, { Component } from "react";
 import { Tile } from "react-native-elements";
+import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { baseUrl } from "../shared/baseUrl";
+import { baseURL } from "../shared/baseUrl";
 
 const mapStateToProps = (state) => {
   return {
@@ -18,18 +19,22 @@ class Menu extends Component {
   render() {
     const { navigate } = this.props.navigation;
     const dishes = this.props.dishes.dishes;
-    return dishes.map((item, index) => {
-      return (
-        <Tile
-          key={index}
-          onPress={() => navigate("Dishdetail", { dishId: item.id })}
-          title={item.name}
-          caption={item.description}
-          featured
-          imageSrc={{ uri: baseUrl + item.image }}
-        />
-      );
-    });
+    return (
+      <ScrollView>
+        {dishes.map((item, index) => {
+          return (
+            <Tile
+              key={index}
+              onPress={() => navigate("Dishdetail", { dishId: item.id })}
+              title={item.name}
+              caption={item.description}
+              featured
+              imageSrc={{ uri: baseURL + item.image }}
+            />
+          );
+        })}
+      </ScrollView>
+    );
   }
 }
 

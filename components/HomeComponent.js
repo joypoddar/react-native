@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { View, Text } from "react-native";
 import { Card } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
-// import { DISHES } from "../shared/dishes";
-// import { LEADERS } from "../shared/leaders";
-// import { PROMOTIONS } from "../shared/promotions";
 
 import { connect } from "react-redux";
 import { baseURL } from "../shared/baseUrl";
@@ -24,7 +21,6 @@ function RenderItems(props) {
     return (
       <Card>
         <Card.Title>{item.name}</Card.Title>
-        {/* <Card.FeaturedTitle>{item.name}</Card.FeaturedTitle> */}
         <Card.FeaturedSubtitle>{item.designation}</Card.FeaturedSubtitle>
         <Card.Image source={{ uri: baseURL + item.image }} />
         <Text style={{ margin: 10 }}>{item.description}</Text>
