@@ -5,6 +5,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Avatar, ListItem } from "react-native-elements";
 import { connect } from "react-redux";
 import { baseURL } from "../shared/baseUrl";
+import { Loading } from "./LoadingComponent";
 
 const mapStateToProps = (state) => {
   return {
@@ -40,26 +41,49 @@ class About extends Component {
   };
   render() {
     const leaders = this.props.leaders.leaders;
-    return (
-      <ScrollView>
-        <History />
-        <Card>
-          <Card.Title>Corporate Leadership</Card.Title>
-          <Card.Divider />
-          {leaders.map((item, index) => {
-            return (
-              <ListItem key={index}>
-                <Avatar rounded source={{ uri: baseURL + item.image }} />
-                <ListItem.Content>
-                  <ListItem.Title>{item.name}</ListItem.Title>
-                  <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-                </ListItem.Content>
-              </ListItem>
-            );
-          })}
-        </Card>
-      </ScrollView>
-    );
+
+    if (this.props.leaders.isLoading) {
+      return (
+        <ScrollView>
+          <History />
+          <Card>
+            <Card.Title>Corporate Leadership</Card.Title>
+            <Loading />
+          </Card>
+        </ScrollView>
+      );
+    } else if (this.props.leaders.errMess) {
+      return (
+        <ScrollView>
+          <History />
+          <Card>
+            <Card.Title>{this.props.leaders.errMsg}</Card.Title>
+            <Loading />
+          </Card>
+        </ScrollView>
+      );
+    } else {
+      return (
+        <ScrollView>
+          <History />
+          <Card>
+            <Card.Title>Corporate Leadership</Card.Title>
+            <Card.Divider />
+            {leaders.map((item, index) => {
+              return (
+                <ListItem key={index}>
+                  <Avatar rounded source={{ uri: baseURL + item.image }} />
+                  <ListItem.Content>
+                    <ListItem.Title>{item.name}</ListItem.Title>
+                    <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                  </ListItem.Content>
+                </ListItem>
+              );
+            })}
+          </Card>
+        </ScrollView>
+      );
+    }
   }
 }
 
