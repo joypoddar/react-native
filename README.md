@@ -33,3 +33,8 @@ yarn add @react-navigation/drawer
 ## W2: Exercise (Video): Using Redux in your React Native App
 
 Follow instruction in baseUrl.js file to load the json-server
+
+## W2: Exercise (Video): Forms
+
+yarn add @react-native-picker/picker
+yarn add @react-native-community/datetimepicker
