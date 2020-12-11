@@ -2,9 +2,15 @@ import React, { Component } from "react";
 import { Card } from "react-native-elements";
 import { Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-
 import { Avatar, ListItem } from "react-native-elements";
-import { LEADERS } from "../shared/leaders";
+import { connect } from "react-redux";
+import { baseURL } from "../shared/baseUrl";
+
+const mapStateToProps = (state) => {
+  return {
+    leaders: state.leaders,
+  };
+};
 
 function History() {
   return (
@@ -29,19 +35,11 @@ function History() {
 }
 
 class About extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      leaders: LEADERS,
-    };
-  }
-
   static navigationOptions = {
     title: "About Us",
   };
   render() {
-    const leaders = this.state.leaders;
+    const leaders = this.props.leaders.leaders;
     return (
       <ScrollView>
         <History />
@@ -51,7 +49,7 @@ class About extends Component {
           {leaders.map((item, index) => {
             return (
               <ListItem key={index}>
-                <Avatar rounded source={require("./images/alberto.png")} />
+                <Avatar rounded source={{ uri: baseURL + item.image }} />
                 <ListItem.Content>
                   <ListItem.Title>{item.name}</ListItem.Title>
                   <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
@@ -65,4 +63,4 @@ class About extends Component {
   }
 }
 
-export default About;
+export default connect(mapStateToProps)(About);
