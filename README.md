@@ -38,3 +38,7 @@ Follow instruction in baseUrl.js file to load the json-server
 
 yarn add @react-native-picker/picker
 yarn add @react-native-community/datetimepicker
+
+## W2: Exercise (Instructions): Modals
+
+yarn add moment

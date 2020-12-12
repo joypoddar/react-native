@@ -7,10 +7,13 @@ import {
   Switch,
   Button,
   Modal,
+  TouchableOpacity,
 } from "react-native";
-import DatePicker from "react-native-datepicker";
-// import DateTimePicker from "@react-native-community/datetimepicker";
+// import DatePicker from "react-native-datepicker";
+import { Icon } from "react-native-elements";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
+import Moment from "moment";
 
 class Reservation extends Component {
   constructor(props) {
@@ -19,8 +22,10 @@ class Reservation extends Component {
     this.state = {
       guests: 1,
       smoking: false,
-      date: "",
+      date: new Date(),
       showModal: false,
+      mode: "date",
+      show: false,
     };
   }
 
@@ -38,18 +43,23 @@ class Reservation extends Component {
     this.setState({
       guests: 1,
       smoking: false,
-      date: "",
+      date: new Date(),
+      show: false,
+      mode: "date",
       showModal: false,
     });
   }
 
   handleReservation() {
+    this.toggleModal();
     console.log(JSON.stringify(this.state));
-    this.setState({
-      guests: 1,
-      smoking: false,
-      date: "",
-    });
+    // this.setState({
+    //   guests: 1,
+    //   smoking: false,
+    //   date: new Date(),
+    //   show: false,
+    //   mode: "date",
+    // });
   }
 
   render() {
@@ -77,37 +87,46 @@ class Reservation extends Component {
           <Switch
             style={styles.formItem}
             value={this.state.smoking}
-            onTintColor="#512DA8"
+            trackColor={{ false: "#767577", true: "#512DA8" }}
             onValueChange={(value) => this.setState({ smoking: value })}
           ></Switch>
         </View>
         <View style={styles.formRow}>
           <Text style={styles.formLabel}>Date and Time</Text>
-          <DatePicker
-            style={{ flex: 2, marginRight: 20 }}
-            date={this.state.date}
-            format=""
-            mode="datetime"
-            placeholder="Select Date and Time"
-            minDate="2017-01-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: "absolute",
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              },
-              dateInput: {
-                marginLeft: 36,
-              },
-              // ... You can check the source to find the other keys.
+          <TouchableOpacity
+            style={styles.formItem}
+            style={{
+              padding: 7,
+              borderColor: "#512DA8",
+              borderWidth: 2,
+              flexDirection: "row",
             }}
-            onDateChange={(date) => {
-              this.setState({ date: date });
-            }}
-          />
+            onPress={() => this.setState({ show: true, mode: "date" })}
+          >
+            <Icon type="font-awesome" name="calendar" color="#512DA8" />
+            <Text>
+              {" " + Moment(this.state.date).format("DD-MMM-YYYY h:mm A")}
+            </Text>
+          </TouchableOpacity>
+          {this.state.show && (
+            <DateTimePicker
+              value={this.state.date}
+              mode={this.state.mode}
+              minimumDate={new Date()}
+              minuteInterval={30}
+              onChange={(event, date) => {
+                if (date === undefined) {
+                  this.setState({ showDTPicker: false });
+                } else {
+                  this.setState({
+                    showDTPicker: this.state.mode === "time" ? false : true,
+                    mode: "time",
+                    date: new Date(date),
+                  });
+                }
+              }}
+            />
+          )}
         </View>
         <View style={styles.formRow}>
           <Button
@@ -118,7 +137,7 @@ class Reservation extends Component {
           />
         </View>
         <Modal
-          animationType={"slide"}
+          animationType="slide"
           transparent={false}
           visible={this.state.showModal}
           onDismiss={() => this.toggleModal()}
@@ -133,7 +152,8 @@ class Reservation extends Component {
               Smoking?: {this.state.smoking ? "Yes" : "No"}
             </Text>
             <Text style={styles.modalText}>
-              Date and Time: {this.state.date}
+              Date and Time:{" "}
+              {Moment(this.state.date).format("ddd DD-MMM-YYYY h:mm A")}
             </Text>
 
             <Button
