@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Card, Avatar, ListItem } from "react-native-elements";
-import { Text, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { ListItem, Avatar } from "react-native-elements";
 import { connect } from "react-redux";
-import { baseURL } from "../shared/baseUrl";
+import { SwipeListView } from "react-native-swipe-list-view";
 import { Loading } from "./LoadingComponent";
+import { baseURL } from "../shared/baseUrl";
+import { deleteFavorite } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,16 +14,42 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
+});
+
 class Favorites extends Component {
   static navigationOptions = {
     title: "My Favorites",
   };
 
   render() {
-    // const dishes = this.props.dishes.dishes;
-    // const { navigate } = this.props.navigate;
-    const dishes = this.props.dishes.dishes.filter((dish) =>
-      this.props.favorites.some((el) => el === dish.id)
+    const { navigate } = this.props.navigation;
+
+    const renderMenuItem = ({ item, index }) => {
+      return (
+        <View>
+          <ListItem
+            key={index}
+            onPress={() => navigate("Dishdetail", { dishId: item.id })}
+          >
+            <Avatar rounded source={{ uri: baseURL + item.image }} />
+            <ListItem.Content>
+              <ListItem.Title>{item.name}</ListItem.Title>
+              <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+            </ListItem.Content>
+          </ListItem>
+        </View>
+      );
+    };
+
+    const renderHiddenItem = ({ item, rowMap }) => (
+      <TouchableOpacity
+        style={styles.swipeButtonRight}
+        onPress={() => this.props.deleteFavorite(item.id)}
+      >
+        <Text style={{ color: "#FFF" }}>DELETE</Text>
+      </TouchableOpacity>
     );
 
     if (this.props.dishes.isLoading) {
@@ -30,33 +57,39 @@ class Favorites extends Component {
     } else if (this.props.dishes.errMess) {
       return (
         <View>
-          <Text>{this.props.dishes.errMsg}</Text>
-          <Loading />
+          <Text>{this.props.dishes.errMess}</Text>
         </View>
       );
     } else {
       return (
-        <ScrollView>
-          <Card>
-            {dishes.map((item, index) => {
-              return (
-                <ListItem
-                  key={index}
-                  onPress={() => navigate("Dishdetail", { dishId: item.id })}
-                >
-                  <Avatar rounded source={{ uri: baseURL + item.image }} />
-                  <ListItem.Content>
-                    <ListItem.Title>{item.name}</ListItem.Title>
-                    <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-                  </ListItem.Content>
-                </ListItem>
-              );
-            })}
-          </Card>
-        </ScrollView>
+        <SwipeListView
+          useFlatList={true}
+          data={this.props.dishes.dishes.filter((dish) =>
+            this.props.favorites.some((el) => el === dish.id)
+          )}
+          renderItem={renderMenuItem}
+          renderHiddenItem={renderHiddenItem}
+          rightOpenValue={-80}
+          stopRightSwipe={-80}
+          disableRightSwipe
+          keyExtractor={(item) => item.id.toString()}
+        />
       );
     }
   }
 }
 
-export default connect(mapStateToProps)(Favorites);
+const styles = StyleSheet.create({
+  swipeButtonRight: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    width: 80,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ff0800",
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
