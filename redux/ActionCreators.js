@@ -169,7 +169,7 @@ export const addLeaders = (leaders) => ({
 export const postFavorite = (dishId) => (dispatch) => {
   setTimeout(() => {
     dispatch(addFavorite(dishId));
-  }, 1000);
+  }, 300);
 };
 
 export const addFavorite = (dishId) => ({

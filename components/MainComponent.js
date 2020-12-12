@@ -29,6 +29,7 @@ import Home from "./HomeComponent";
 import Menu from "./MenuComponent";
 import Contact from "./ContactComponent";
 import About from "./AboutComponent";
+import Favorites from "./FavoriteComponent";
 import Reservation from "./ReservationComponent";
 import {
   fetchDishes,
@@ -177,6 +178,33 @@ function ContactNavigatorScreen({ navigation }) {
   );
 }
 
+const FavoritesNavigator = createStackNavigator();
+
+function FavoritesNavigatorScreen({ navigation }) {
+  return (
+    <FavoritesNavigator.Navigator
+      initialRouteName="Favorites"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#512DA8",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          color: "#fff",
+        },
+      }}
+    >
+      <FavoritesNavigator.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{
+          headerLeft: () => <StackNavigatorIcon navigation={navigation} />,
+        }}
+      />
+    </FavoritesNavigator.Navigator>
+  );
+}
+
 const ReservationNavigator = createStackNavigator();
 
 function ReservationNavigatorScreen({ navigation }) {
@@ -268,6 +296,13 @@ function MainNavigator() {
           drawerIcon: () => (
             <DrawerNavigatorIcon name="address-card" size={22} />
           ),
+        }}
+      />
+      <Drawer.Screen
+        name="My Favorites"
+        component={FavoritesNavigatorScreen}
+        options={{
+          drawerIcon: () => <DrawerNavigatorIcon name="heart" />,
         }}
       />
       <Drawer.Screen
