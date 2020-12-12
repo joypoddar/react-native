@@ -37,7 +37,7 @@ Follow instruction in baseUrl.js file to load the json-server
 ## W2: Exercise (Video): Forms
 
 yarn add @react-native-picker/picker
-yarn add @react-native-community/datetimepicker
+expo install @react-native-community/datetimepicker
 
 ## W2: Exercise (Instructions): Modals
 

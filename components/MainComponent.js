@@ -14,7 +14,15 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { Icon } from "react-native-elements";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Platform,
+  Text,
+  View,
+} from "react-native";
+import { connect } from "react-redux";
 
 import Dishdetail from "./DishdetailComponent";
 import Home from "./HomeComponent";
@@ -22,8 +30,6 @@ import Menu from "./MenuComponent";
 import Contact from "./ContactComponent";
 import About from "./AboutComponent";
 import Reservation from "./ReservationComponent";
-
-import { connect } from "react-redux";
 import {
   fetchDishes,
   fetchComments,
