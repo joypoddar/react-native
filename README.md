@@ -42,3 +42,15 @@ expo install @react-native-community/datetimepicker
 ## W2: Exercise (Instructions): Modals
 
 yarn add moment
+
+## W3: Exercise (Video): Persist Redux Store
+
+```jsx
+yarn add @react-native-community/async-storage
+
+import AsyncStorage from '@react-native-community/async-storage';
+const persistConfig = {
+  //...
+  storage: AsyncStorage,
+}
+```
