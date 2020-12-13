@@ -3,9 +3,10 @@ import React, { Component } from "react";
 import { View, Text, ScrollView, Modal, Button } from "react-native";
 import { Card, Icon, Rating, Input } from "react-native-elements";
 import { connect } from "react-redux";
+import * as Animatable from "react-native-animatable";
+import Moment from "moment";
 import { postFavorite, postComment } from "../redux/ActionCreators";
 import { baseURL } from "../shared/baseUrl";
-import Moment from "moment";
 
 const mapStateToProps = (state) => {
   return {
@@ -26,33 +27,37 @@ function RenderDish(props) {
 
   if (dish != null) {
     return (
-      <Card>
-        <Card.Title>{dish.name}</Card.Title>
-        <Card.Image source={{ uri: baseURL + dish.image }} />
-        <Text style={{ margin: 10 }}>{dish.description}</Text>
-        <View
-          style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}
-        >
-          <Icon
-            raised
-            reverse
-            name={props.favorite ? "heart" : "heart-o"}
-            type="font-awesome"
-            color="#f50"
-            onPress={() =>
-              props.favorite ? console.log("Already favorite") : props.onPress()
-            }
-          />
-          <Icon
-            raised
-            reverse
-            name="pencil"
-            type="font-awesome"
-            color="#512DA8"
-            onPress={() => props.toggleModal()}
-          />
-        </View>
-      </Card>
+      <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+        <Card>
+          <Card.Title>{dish.name}</Card.Title>
+          <Card.Image source={{ uri: baseURL + dish.image }} />
+          <Text style={{ margin: 10 }}>{dish.description}</Text>
+          <View
+            style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}
+          >
+            <Icon
+              raised
+              reverse
+              name={props.favorite ? "heart" : "heart-o"}
+              type="font-awesome"
+              color="#f50"
+              onPress={() =>
+                props.favorite
+                  ? console.log("Already favorite")
+                  : props.onPress()
+              }
+            />
+            <Icon
+              raised
+              reverse
+              name="pencil"
+              type="font-awesome"
+              color="#512DA8"
+              onPress={() => props.toggleModal()}
+            />
+          </View>
+        </Card>
+      </Animatable.View>
     );
   } else {
     return <View></View>;
@@ -62,28 +67,30 @@ function RenderDish(props) {
 function RenderComments(props) {
   const comments = props.comments;
   return (
-    <Card>
-      <Card.Title>{"Comments"}</Card.Title>
-      {comments.map((item, index) => {
-        return (
-          <View key={index} style={{ margin: 10 }}>
-            <Text style={{ fontSize: 14 }}>{item.comment}</Text>
-            <Rating
-              style={{ alignSelf: "flex-start", margin: 4 }}
-              readonly
-              imageSize={14}
-              startingValue={item.rating}
-            />
-            <Text style={{ fontSize: 12 }}>
-              {"-- " +
-                item.author +
-                ", " +
-                Moment(item.date).format("DD-MMM-YYYY HH:mm")}
-            </Text>
-          </View>
-        );
-      })}
-    </Card>
+    <Animatable.View animation="fadeInUp" duration={2000} delay={1000}>
+      <Card>
+        <Card.Title>{"Comments"}</Card.Title>
+        {comments.map((item, index) => {
+          return (
+            <View key={index} style={{ margin: 10 }}>
+              <Text style={{ fontSize: 14 }}>{item.comment}</Text>
+              <Rating
+                style={{ alignSelf: "flex-start", margin: 4 }}
+                readonly
+                imageSize={14}
+                startingValue={item.rating}
+              />
+              <Text style={{ fontSize: 12 }}>
+                {"-- " +
+                  item.author +
+                  ", " +
+                  Moment(item.date).format("DD-MMM-YYYY HH:mm")}
+              </Text>
+            </View>
+          );
+        })}
+      </Card>
+    </Animatable.View>
   );
 }
 

@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import { connect } from "react-redux";
 import { SwipeListView } from "react-native-swipe-list-view";
+import * as Animatable from "react-native-animatable";
 import { Loading } from "./LoadingComponent";
 import { baseURL } from "../shared/baseUrl";
 import { deleteFavorite } from "../redux/ActionCreators";
@@ -28,7 +29,7 @@ class Favorites extends Component {
 
     const renderMenuItem = ({ item, index }) => {
       return (
-        <View>
+        <Animatable.View animation="fadeInRightBig" duration={2000}>
           <ListItem
             key={index}
             onPress={() => navigate("Dishdetail", { dishId: item.id })}
@@ -39,7 +40,7 @@ class Favorites extends Component {
               <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
-        </View>
+        </Animatable.View>
       );
     };
 

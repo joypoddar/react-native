@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { Tile } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
+import * as Animatable from "react-native-animatable";
 import { connect } from "react-redux";
 import { baseURL } from "../shared/baseUrl";
 import { Loading } from "./LoadingComponent";
@@ -31,20 +32,22 @@ class Menu extends Component {
       );
     } else {
       return (
-        <ScrollView>
-          {dishes.map((item, index) => {
-            return (
-              <Tile
-                key={index}
-                onPress={() => navigate("Dishdetail", { dishId: item.id })}
-                title={item.name}
-                caption={item.description}
-                featured
-                imageSrc={{ uri: baseURL + item.image }}
-              />
-            );
-          })}
-        </ScrollView>
+        <Animatable.View animation="fadeInRightBig" duration={2000}>
+          <ScrollView>
+            {dishes.map((item, index) => {
+              return (
+                <Tile
+                  key={index}
+                  onPress={() => navigate("Dishdetail", { dishId: item.id })}
+                  title={item.name}
+                  caption={item.description}
+                  featured
+                  imageSrc={{ uri: baseURL + item.image }}
+                />
+              );
+            })}
+          </ScrollView>
+        </Animatable.View>
       );
     }
   }

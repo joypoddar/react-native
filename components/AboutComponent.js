@@ -3,6 +3,7 @@ import { Card } from "react-native-elements";
 import { Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Avatar, ListItem } from "react-native-elements";
+import * as Animatable from "react-native-animatable";
 import { connect } from "react-redux";
 import { baseURL } from "../shared/baseUrl";
 import { Loading } from "./LoadingComponent";
@@ -55,32 +56,36 @@ class About extends Component {
     } else if (this.props.leaders.errMess) {
       return (
         <ScrollView>
-          <History />
-          <Card>
-            <Card.Title>{this.props.leaders.errMsg}</Card.Title>
-            <Loading />
-          </Card>
+          <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+            <History />
+            <Card>
+              <Card.Title>{this.props.leaders.errMsg}</Card.Title>
+              <Loading />
+            </Card>
+          </Animatable.View>
         </ScrollView>
       );
     } else {
       return (
         <ScrollView>
-          <History />
-          <Card>
-            <Card.Title>Corporate Leadership</Card.Title>
-            <Card.Divider />
-            {leaders.map((item, index) => {
-              return (
-                <ListItem key={index}>
-                  <Avatar rounded source={{ uri: baseURL + item.image }} />
-                  <ListItem.Content>
-                    <ListItem.Title>{item.name}</ListItem.Title>
-                    <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-                  </ListItem.Content>
-                </ListItem>
-              );
-            })}
-          </Card>
+          <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+            <History />
+            <Card>
+              <Card.Title>Corporate Leadership</Card.Title>
+              <Card.Divider />
+              {leaders.map((item, index) => {
+                return (
+                  <ListItem key={index}>
+                    <Avatar rounded source={{ uri: baseURL + item.image }} />
+                    <ListItem.Content>
+                      <ListItem.Title>{item.name}</ListItem.Title>
+                      <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                    </ListItem.Content>
+                  </ListItem>
+                );
+              })}
+            </Card>
+          </Animatable.View>
         </ScrollView>
       );
     }
