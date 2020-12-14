@@ -85,17 +85,17 @@ class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-    margin: 20,
+    margin: 15,
   },
   formInput: {
-    margin: 40,
+    // margin: 40,
   },
   formCheckbox: {
-    margin: 40,
+    // margin: 40,
     backgroundColor: null,
   },
   formButton: {
-    margin: 60,
+    // margin: 60,
   },
 });
 
