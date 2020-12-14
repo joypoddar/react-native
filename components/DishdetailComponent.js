@@ -8,6 +8,7 @@ import {
   Button,
   Alert,
   PanResponder,
+  Share,
 } from "react-native";
 import { Card, Icon, Rating, Input } from "react-native-elements";
 import { connect } from "react-redux";
@@ -84,6 +85,19 @@ function RenderDish(props) {
     },
   });
 
+  const shareDish = (title, message, url) => {
+    Share.share(
+      {
+        title: title,
+        message: title + ": " + message + " " + url,
+        url: url,
+      },
+      {
+        dialogTitle: "Share " + title,
+      }
+    );
+  };
+
   if (dish != null) {
     return (
       <Animatable.View
@@ -119,6 +133,17 @@ function RenderDish(props) {
               type="font-awesome"
               color="#512DA8"
               onPress={() => props.toggleModal()}
+            />
+            <Icon
+              raised
+              reverse
+              name="share"
+              type="material"
+              color="#51D2A8"
+              // style={style.cardItem}
+              onPress={() =>
+                shareDish(dish.name, dish.description, baseURL + dish.image)
+              }
             />
           </View>
         </Card>
