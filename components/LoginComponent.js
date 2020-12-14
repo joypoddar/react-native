@@ -59,21 +59,21 @@ class LoginTab extends Component {
           leftIcon={{ type: "font-awesome", name: "user-o" }}
           onChangeText={(username) => this.setState({ username })}
           value={this.state.username}
-          inputContainerStyle={styles.formInput}
+          containerStyle={styles.formInput}
         />
         <Input
           placeholder="Password"
           leftIcon={{ type: "font-awesome", name: "key" }}
           onChangeText={(password) => this.setState({ password })}
           value={this.state.password}
-          inputContainerStyle={styles.formInput}
+          containerStyle={styles.formInput}
         />
         <CheckBox
           title="Remember Me"
           center
           checked={this.state.remember}
           onPress={() => this.setState({ remember: !this.state.remember })}
-          inputContainerStyle={styles.formCheckbox}
+          containerStyle={styles.formCheckbox}
         />
         <View style={styles.formButton}>
           <Button
@@ -224,7 +224,7 @@ class RegisterTab extends Component {
           <View style={styles.formButton}>
             <Button
               onPress={() => this.handleRegister()}
-              title="Register"
+              title=" Register"
               icon={
                 <Icon
                   name="user-plus"
