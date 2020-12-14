@@ -147,7 +147,7 @@ class RegisterTab extends Component {
   };
 
   static navigationOptions = {
-    title: "Login",
+    title: "Register",
   };
 
   handleRegister() {
