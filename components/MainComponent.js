@@ -296,17 +296,17 @@ function MainNavigator() {
       drawerContent={(props) => <CustomDrawerContentComponent {...props} />}
     >
       <Drawer.Screen
-        name="Login"
-        component={LoginNavigatorScreen}
-        options={{
-          drawerIcon: () => <DrawerNavigatorIcon name="sign-in" />,
-        }}
-      />
-      <Drawer.Screen
         name="Home"
         component={HomeNavigatorScreen}
         options={{
           drawerIcon: () => <DrawerNavigatorIcon name="home" />,
+        }}
+      />
+      <Drawer.Screen
+        name="Login"
+        component={LoginNavigatorScreen}
+        options={{
+          drawerIcon: () => <DrawerNavigatorIcon name="sign-in" />,
         }}
       />
       <Drawer.Screen
